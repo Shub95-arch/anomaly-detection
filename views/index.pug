@@ -1,0 +1,158 @@
+doctype html
+head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title secureNET | #{title}
+    link(rel='stylesheet' href='./styles.css')
+    link(rel="icon" type="image/x-icon" href="./logo.ico")
+    //- link(rel="stylesheet" href="https://sets.hugeicons.com/YOUR-SET-ID.css" crossorigin="anonymous")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet")
+.container
+    #sidebar.sidebar
+        #menuIcon.menu-icon &#x2630;
+        img#sidebarImage(style='rotate: 270deg;bottom: 170px;position: absolute;' height='65px' src='./new_logo.png')
+        .sidebar-menu
+            a#contactLink.menu-item(href='https://google.com')
+                i.fa.fa-life-ring(aria-hidden='true')
+            a#contactLink.menu-item(href='https://google.com')
+                i.fa.fa-code(aria-hidden='true')
+
+    .chat-container
+        .chat-header
+            img#desktopImage(height='40px' align='left' src='./new_logo.png')
+            span.header-text#headerText 
+        .chat-messages
+            .message.received
+                | Please upload a .csv file to begin detection
+        .chat-input
+            select#reportType.option-bar
+                option(value='isolation_forest') Server Logs
+                option(value='iqr') Financial Report
+                option(value='z_score') Company Sales
+            label.file-upload-btn(for='fileInput')
+                i.fas.fa-upload
+                span.upload-text#fileNameText Upload
+            input#fileInput(type='file' accept='.csv')
+            button#sendButton(type='submit') Send
+        #textEffect.text-effects
+#scrollToBottom.scroll-arrow
+  i.fa.fa-angle-double-down
+
+script.
+    //---------------
+    document
+        .getElementById("scrollToBottom")
+        .addEventListener("click", function () {
+          const chatMessages = document.querySelector(".chat-messages");
+          chatMessages.scrollTo({
+            top: chatMessages.scrollHeight, // Scroll to the bottom of the chat messages
+            behavior: "smooth", // Smooth scroll
+          });
+        });
+
+      // Show/hide the scroll arrow based on the scroll position
+      const chatMessages = document.querySelector(".chat-messages");
+      const scrollArrow = document.getElementById("scrollToBottom");
+
+      // Initially hide the scroll arrow
+      scrollArrow.style.opacity = "0";
+      scrollArrow.style.pointerEvents = "none";
+
+      // Function to check if the chat content is scrollable
+      function checkIfScrollable() {
+        if (chatMessages.scrollHeight > chatMessages.clientHeight) {
+          // If the content is scrollable, show the arrow
+          chatMessages.addEventListener("scroll", function () {
+            if (
+              chatMessages.scrollTop + chatMessages.clientHeight <
+              chatMessages.scrollHeight
+            ) {
+              // Show the arrow when scrolling
+              scrollArrow.style.opacity = "1";
+              scrollArrow.style.pointerEvents = "auto";
+
+              // Hide the arrow after 2 seconds
+              clearTimeout(scrollArrow.timer); // Clear any previous timeouts
+              scrollArrow.timer = setTimeout(function () {
+                scrollArrow.style.opacity = "0";
+                scrollArrow.style.pointerEvents = "none";
+              }, 2000); // 2 seconds delay before hiding
+            } else {
+              // If the user has scrolled to the bottom, hide the arrow
+              scrollArrow.style.opacity = "0";
+              scrollArrow.style.pointerEvents = "none";
+            }
+          });
+        }
+      }
+
+      // Set up MutationObserver to watch for changes in the chat content
+      const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          if (mutation.type === "childList") {
+            checkIfScrollable(); // Check if the content is scrollable after new content is added
+          }
+        });
+      });
+
+      // Start observing the chat container for added nodes (child elements)
+      observer.observe(chatMessages, {
+        childList: true, // Observe for added/removed child elements
+        subtree: true, // Observe all descendants of the chat container
+      });
+
+      // Ensure to check scrollability when the page loads
+      window.addEventListener("load", checkIfScrollable);
+    //---------------
+    document
+    .getElementById("menuIcon")
+    .addEventListener("click", function () {
+    document.getElementById("sidebar").classList.toggle("expanded");
+    });
+    document
+        .getElementById("fileInput")
+        .addEventListener("change", function (e) {
+          const fileName = e.target.files[0]?.name || "Upload";
+          const truncatedFileName =
+            fileName.length > 8 ? fileName.slice(0, 12) + "..." : fileName;
+          const fileNameTextElement = document.getElementById("fileNameText");
+
+          if (fileName && fileName !== "Upload") {
+            fileNameTextElement.textContent = truncatedFileName;
+          } else {
+            fileNameTextElement.textContent = "Upload";
+          }
+        });
+    const texts = [
+    "AI Anomaly Detection",
+    "Anomaly Chatbot",
+    "Detecting Patterns",
+    "Secure AI Insights",
+    ];
+    let index = 0;
+    let charIndex = 0;
+    const speed = 100;
+    function typeEffect() {
+    if (charIndex < texts[index].length) {
+    document.getElementById("headerText").textContent +=
+    texts[index][charIndex];
+    charIndex++;
+    setTimeout(typeEffect, speed);
+    } else {
+    setTimeout(eraseEffect, 2000);
+    }
+    }
+    function eraseEffect() {
+    if (charIndex > 0) {
+    document.getElementById("headerText").textContent = texts[
+    index
+    ].substring(0, charIndex - 1);
+    charIndex--;
+    setTimeout(eraseEffect, speed / 2);
+    } else {
+    index = (index + 1) % texts.length;
+    setTimeout(typeEffect, 500);
+    }
+    }
+    typeEffect();
+script(src='/js/bundle.js')

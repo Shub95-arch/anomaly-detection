@@ -1,0 +1,37 @@
+{
+  "name": "anomaly_det",
+  "version": "1.0.0",
+  "description": "To detect anomaly",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:js": "parcel watch ./data/js/index.js --out-dir ./data/js --out-file bundle.js",
+    "build:js": "parcel watch ./data/js/index.js --out-dir ./data/js --out-file bundle.js"
+  },
+  "author": "shub",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "form-data": "^4.0.2",
+    "fs": "^0.0.1-security",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "http": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.2",
+    "nodemon": "^3.1.9",
+    "path": "^0.12.7",
+    "pug": "^3.0.3",
+    "socket.io": "^4.8.1",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}

@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #1e1e1e;
+  color: white;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 70px;
+  background: #2b2b2b;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar.expanded {
+  width: 220px;
+}
+
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #252525;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 2px solid #444;
+  position: relative;
+}
+.chat-header img {
+  position: absolute;
+  left: 10px; /* Place it at the left side */
+  top: 50%;
+  transform: translateY(-50%); /* Center the logo vertically */
+  max-height: 40px; /* Ensuring the logo doesn't get too big */
+}
+.header-text {
+  background: #6a6f6a; /* Green background */
+  border-radius: 50px; /* Create an oval shape */
+  color: white;
+  font-family: 'Inter', sans-serif;
+  padding: 15px 30px; /* Adjust padding for oval shape */
+}
+@media (max-width: 600px) {
+  /* Adjust the font size for smaller screens */
+  .chat-header {
+    font-size: 18px;
+  }
+
+  /* Make the logo smaller on mobile */
+  .chat-header img {
+    max-height: 30px; /* Reduce logo size */
+    left: 10px; /* Keep the left margin */
+  }
+
+  /* Adjust the padding and margins for the header text on smaller screens */
+  .header-text {
+    font-size: 14px;
+    padding: 10px 20px; /* Reduce padding on mobile */
+    /* Maintain space between logo and text */
+  }
+}
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  padding: 5px;
+  border-radius: 8px;
+  max-width: 70%;
+}
+
+.received {
+  background: #3b3b3b;
+  align-self: flex-start;
+}
+
+.sent {
+  background: #444;
+  align-self: flex-end;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  background: #1e1e1e;
+  border-top: 2px solid #444;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  width: 90%; /* Adjust width to make the input bar smaller (set to 80% of the container width) */
+  max-width: 2000px; /* Set a maximum width to prevent it from getting too wide */
+  margin: 0 auto; /* This ensures it stays centered horizontally */
+}
+
+.chat-input input[type='file'] {
+  flex: 1;
+  color: white;
+  background: #333;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.chat-input button {
+  padding: 10px 16px;
+  background: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.chat-input button:hover {
+  background: #777;
+  transform: scale(1.05);
+}
+
+.text-effects {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid white;
+  animation: blinkCursor 0.8s infinite;
+}
+
+@keyframes blinkCursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.sent {
+  background: #104f97;
+  color: white;
+  align-self: flex-end;
+}
+
+.received {
+  background: #958f8f;
+  color: black;
+  align-self: flex-start;
+}
+
+.alert {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  color: #fff;
+  font-size: 1.2rem; /* Reduced font size */
+  font-weight: 400;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 0.4rem 3rem; /* Further reduced padding */
+  width: auto; /* Allows the width to adjust to content */
+  max-width: 50%; /* Limits the maximum width */
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+}
+
+.alert--success {
+  background-color: #20bf6b;
+}
+
+.alert--error {
+  background-color: #eb4d4b;
+}
+
+/* Media query for Android devices */
+@media (max-width: 600px) {
+  .alert {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+    padding: 0.5rem 3rem; /* Adjust padding for smaller screens */
+    max-width: 80%; /* Increase max-width to fit smaller screens */
+  }
+
+  /* Chat input width should be full width on small screens */
+  .chat-input {
+    width: 100% !important; /* Ensure full width on small screens */
+    margin: 0; /* Remove margin for full-width */
+    padding: 10px; /* Keep padding consistent */
+  }
+
+  .file-upload-btn {
+    font-size: 20px; /* Adjust icon size for better visibility on mobile */
+  }
+
+  .upload-text {
+    font-size: 14px; /* Adjust font size to fit mobile screens */
+  }
+
+  /* Option Bar dropdown should also take full width on small screens */
+  .option-bar {
+    width: 100%;
+    padding: 10px 0; /* Adjust padding to make it more accessible */
+  }
+
+  /* Ensure the send button also takes full width */
+  #sendButton {
+    width: 100%; /* Make send button full width on mobile */
+    margin-left: 0; /* Remove margin */
+  }
+}
+
+#fileInput {
+  display: none;
+}
+
+/* Style the custom file upload button */
+.file-upload-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px; /* Icon size */
+  cursor: pointer;
+  color: #8b9191; /* Green color for the icon */
+  display: flex;
+  align-items: center; /* Align icon and text horizontally */
+}
+
+.file-upload-btn:hover {
+  color: #45a049; /* Slightly darker green when hovered */
+}
+
+/* Border and text style for 'Upload Files' */
+.upload-text {
+  margin-left: 8px; /* Space between icon and text */
+  font-size: 16px;
+  color: #8b9191;
+  font-weight: 500;
+  text-align: center;
+  padding: 5px;
+  border: 1px dashed #4caf50; /* Green dashed border */
+  border-radius: 5px;
+}
+
+/* Ensuring the input and button are aligned properly */
+.chat-input {
+  display: flex;
+  align-items: center;
+}
+
+/* Position the send button on the far right */
+#sendButton {
+  margin-left: auto;
+}
+
+.option-bar {
+  margin-right: 10px;
+  background: #333;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 8px;
+  padding: 5px 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.option-bar:hover {
+  background: #555;
+  border-color: #777;
+}
+#sidebarImage {
+  display: none;
+}
+
+/* Show the image only on mobile devices */
+@media (max-width: 600px) {
+  #sidebarImage {
+    display: block;
+  }
+}
+#desktopImage {
+  display: none;
+}
+
+/* Show the image only on desktop devices */
+@media (min-width: 601px) {
+  #desktopImage {
+    display: block;
+  }
+}
+.scroll-arrow {
+  position: fixed;
+  bottom: 110px; /* Positioned at the bottom */
+  right: 40px; /* Positioned at the right */
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0; /* Initially hidden */
+  pointer-events: none; /* Initially disabled */
+  transition: opacity 0.3s ease-in-out; /* Smooth fade-in/out effect */
+}
+
+.scroll-arrow.show {
+  opacity: 1; /* Show the arrow when scrolling is needed */
+  pointer-events: auto; /* Enable the click event */
+}
+
+.scroll-arrow i {
+  color: #92998f;
+  font-size: 24px;
+}
+.sidebar-menu {
+  margin-top: 20px;
+  padding-left: 10px;
+}
+
+.menu-item {
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  border-bottom: 1px solid #444;
+}
+
+.menu-item:hover {
+  background-color: #555;
+  cursor: pointer;
+}
+
+.menu-item i {
+  margin-right: 8px;
+}
