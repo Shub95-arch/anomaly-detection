@@ -2,7 +2,7 @@
 
 This project is an anomaly detection system built using Node.js that interfaces with a Python-based anomaly detection API. The system is capable of detecting anomalies in various data types such as company sales, server logs, and financial reports. It stores the last 50,000 data chunks it has processed to maintain context and improve detection accuracy.
 
-The service is hosted at [https://anomaly.securenet.fun](https://anomaly.securenet.fun).
+The service is hosted at [here](https://anomaly.securenet.fun).
 
 ## Features
 
@@ -13,7 +13,6 @@ The service is hosted at [https://anomaly.securenet.fun](https://anomaly.securen
 - Remembers the last 50,000 chunks of processed data for improved anomaly detection.
 - API integration with a Python anomaly detection model.
 - Real-time processing and anomaly identification.
-- Hosted on [https://anomaly.securenet.fun](https://anomaly.securenet.fun).
 
 ## Installation
 
@@ -28,5 +27,5 @@ The service is hosted at [https://anomaly.securenet.fun](https://anomaly.securen
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/anomaly-detection-nodejs.git
+   https://github.com/Shub95-arch/anomaly-detection.git
    cd anomaly-detection-nodejs
